@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mortgage Calculator</title>
+  <link rel="stylesheet" href="static/styles/style1.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="form-section">
+      <div class="form-header">
+        <h2>Mortgage Calculator</h2>
+        <a href="#" class="clear-link" onclick="clearForm()">Clear All</a>
+      </div>
+
+      <label for="amount">Mortgage Amount</label>
+      <div class="input-icon">
+        <span class="icon">£</span>
+        <input type="text" />
+      </div>
+
+      <div class="inline-inputs">
+        <div>
+          <label for="term">Mortgage Term</label>
+          <input type="number" id="term"  />
+        </div>
+        <div>
+          <label for="rate">Interest Rate</label>
+          <input type="number" id="rate" step="0.01"  />
+        </div>
+      </div>
+
+      <label>Mortgage Type</label>
+      <div class="radio-group">
+        <label class="radio-option active">
+          <input type="radio" name="type" value="repayment" checked /> Repayment
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="type" value="interest" /> Interest Only
+        </label>
+      </div>
+
+      <button onclick="calculate()">📟 Calculate Repayments</button>
+    </div>
+
+    <div class="result-section">
+      <img src="https://cdn-icons-png.flaticon.com/512/3405/3405855.png" alt="icon" width="100" />
+      <h3 id="result-title">Results shown here</h3>
+      <p id="result-description">Complete the form and click “calculate repayments” to see what your monthly repayments would be.</p>
+
+      <div class="results-box" id="results" style="display:none;">
+        <p>Your monthly repayments</p>
+        <h3 id="monthly"></h3>
+        <p>Total you'll repay over the term</p>
+        <p id="total"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function cleanNumber(value) {
+      return parseFloat(value.replace(/[^\d.-]/g, '').replace(',', '.'));
+    }
+
+    function calculate() {
+      const amount = cleanNumber(document.getElementById("amount").value || "0");
+      const term = parseInt(document.getElementById("term").value || "0");
+      const rate = parseFloat(document.getElementById("rate").value || "0") / 100 / 12;
+      const months = term * 12;
+      const type = document.querySelector('input[name="type"]:checked').value;
+
+      let monthly = 0, total = 0;
+
+      if (type === "repayment") {
+        if (rate === 0) {
+          monthly = amount / months;
+        } else {
+          monthly = (amount * rate) / (1 - Math.pow(1 + rate, -months));
+        }
+        total = monthly * months;
+      } else {
+        monthly = amount * rate;
+        total = monthly * months;
+      }
+
+      document.getElementById("monthly").textContent = "£" + monthly.toFixed(2);
+      document.getElementById("total").textContent = "£" + total.toFixed(2);
+      document.getElementById("results").style.display = "block";
+
+      document.getElementById("result-title").style.display = "none";
+      document.getElementById("result-description").style.display = "none";
+    }
+
+    function clearForm() {
+      document.getElementById("amount").value = "";
+      document.getElementById("term").value = "";
+      document.getElementById("rate").value = "";
+      document.querySelector('input[name="type"][value="repayment"]').checked = true;
+      document.querySelectorAll(".radio-option").forEach(el => el.classList.remove("active"));
+      document.querySelector(".radio-option").classList.add("active");
+
+      document.getElementById("results").style.display = "none";
+      document.getElementById("result-title").style.display = "block";
+      document.getElementById("result-description").style.display = "block";
+    }
+
+    document.querySelectorAll(".radio-option").forEach(el => {
+      el.addEventListener("click", () => {
+        document.querySelectorAll(".radio-option").forEach(e => e.classList.remove("active"));
+        el.classList.add("active");
+      });
+    });
+  </script>
+</body>
+</html>
