@@ -43,7 +43,7 @@ body {
 .result-section {
   flex: 1 1 350px;
   background-color: #0f2b3d;
-  color: white;
+  color: rgb(241, 241, 241);
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -80,14 +80,9 @@ input:focus {
   background-color: #fffbe6;
 }
 
-.inline-inputs {
-  display: flex;
-  gap: 1rem;
-}
 
-.inline-inputs input {
-  flex: 1;
-}
+
+
 
 .radio-group {
   display: flex;
@@ -161,6 +156,7 @@ button {
 .input-icon {
   position: relative;
   width: 100%;
+
 }
 
 .input-icon .icon {
@@ -169,8 +165,8 @@ position: absolute;
   top: 0;
   bottom: 0;
   width: 30px;
-  background-color: #b4a3a3;
-  color: #389c10;
+  background-color: #e5f3fc;
+  color: #698089;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,3 +182,51 @@ position: absolute;
   padding-left: 2rem !important;
 }
 
+.inline-inputs {
+  display: flex;
+  gap: 1rem;
+}
+
+.inline-inputs input {
+  flex: 1;
+}
+
+
+.input-icon .year {
+position: absolute;
+  left: 146px;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #e5f3fc;
+  color: #698089;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+  pointer-events: none;
+  
+}
+
+
+.input-icon .percent {
+  position: absolute;
+  left: 146px;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #e5f3fc;
+  color: #698089;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+  pointer-events: none;
+  
+}
